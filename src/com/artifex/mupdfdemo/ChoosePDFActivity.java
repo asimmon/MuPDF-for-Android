@@ -44,7 +44,6 @@ public class ChoosePDFActivity extends ListActivity {
 
 		mPurpose = PICK_KEY_FILE.equals(getIntent().getAction()) ? Purpose.PickKeyFile : Purpose.PickPDF;
 
-
 		String storageState = Environment.getExternalStorageState();
 
 		if (!Environment.MEDIA_MOUNTED.equals(storageState)
@@ -105,6 +104,8 @@ public class ChoosePDFActivity extends ListActivity {
 							if (fname.endsWith(".xps"))
 								return true;
 							if (fname.endsWith(".cbz"))
+								return true;
+							if (fname.endsWith(".epub"))
 								return true;
 							if (fname.endsWith(".png"))
 								return true;
@@ -199,7 +200,7 @@ public class ChoosePDFActivity extends ListActivity {
 
 		position -= mDirs.length;
 
-		Uri uri = Uri.parse(mFiles[position].getAbsolutePath());
+		Uri uri = Uri.fromFile(mFiles[position]);
 		Intent intent = new Intent(this,MuPDFActivity.class);
 		intent.setAction(Intent.ACTION_VIEW);
 		intent.setData(uri);

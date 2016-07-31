@@ -3,6 +3,11 @@ package com.artifex.mupdfdemo;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -19,14 +24,14 @@ import android.widget.Scroller;
 public class ReaderView
 		extends AdapterView<Adapter>
 		implements GestureDetector.OnGestureListener, ScaleGestureDetector.OnScaleGestureListener, Runnable {
-	private static final int  MOVING_DIAGONALLY = 0;
-	private static final int  MOVING_LEFT       = 1;
-	private static final int  MOVING_RIGHT      = 2;
-	private static final int  MOVING_UP         = 3;
-	private static final int  MOVING_DOWN       = 4;
+	private static final int MOVING_DIAGONALLY = 0;
+	private static final int MOVING_LEFT       = 1;
+	private static final int MOVING_RIGHT      = 2;
+	private static final int MOVING_UP         = 3;
+	private static final int MOVING_DOWN       = 4;
 
-	private static final int  FLING_MARGIN      = 100;
-	private static final int  GAP               = 20;
+	private static final int FLING_MARGIN      = 100;
+	private static final int GAP               = 20;
 
 	private static final float MIN_SCALE        = 1.0f;
 	private static final float MAX_SCALE        = 5.0f;
@@ -58,6 +63,8 @@ public class ReaderView
 	private final Stepper     mStepper;
 	private int               mScrollerLastX;
 	private int               mScrollerLastY;
+	private float		  mLastScaleFocusX;
+	private float		  mLastScaleFocusY;
 
 	static abstract class ViewMapper {
 		abstract void applyToView(View view);
@@ -67,13 +74,13 @@ public class ReaderView
 		super(context);
 		mGestureDetector = new GestureDetector(this);
 		mScaleGestureDetector = new ScaleGestureDetector(context, this);
-		mScroller        = new Scroller(context);
+		mScroller = new Scroller(context);
 		mStepper = new Stepper(this, this);
 	}
 
 	public ReaderView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		
+
 		// "Edit mode" means when the View is being displayed in the Android GUI editor. (this class
 		// is instantiated in the IDE, so we need to be a bit careful what we do).
 		if (isInEditMode())
@@ -87,7 +94,7 @@ public class ReaderView
 		{
 			mGestureDetector = new GestureDetector(this);
 			mScaleGestureDetector = new ScaleGestureDetector(context, this);
-			mScroller        = new Scroller(context);
+			mScroller = new Scroller(context);
 			mStepper = new Stepper(this, this);
 		}
 	}
@@ -96,7 +103,7 @@ public class ReaderView
 		super(context, attrs, defStyle);
 		mGestureDetector = new GestureDetector(this);
 		mScaleGestureDetector = new ScaleGestureDetector(context, this);
-		mScroller        = new Scroller(context);
+		mScroller = new Scroller(context);
 		mStepper = new Stepper(this, this);
 	}
 
@@ -166,7 +173,7 @@ public class ReaderView
 		// code.
 
 		// screenWidth/Height are the actual width/height of the screen. e.g. 480/800
-		int screenWidth  = getWidth();
+		int screenWidth = getWidth();
 		int screenHeight = getHeight();
 		// We might be mid scroll; we want to calculate where we scroll to based on
 		// where this scroll would end, not where we are now (to allow for people
@@ -174,11 +181,11 @@ public class ReaderView
 		int remainingX = mScroller.getFinalX() - mScroller.getCurrX();
 		int remainingY = mScroller.getFinalY() - mScroller.getCurrY();
 		// right/bottom is in terms of pixels within the scaled document; e.g. 1000
-		int top = -(v.getTop()  + mYScroll + remainingY);
-		int right  = screenWidth -(v.getLeft() + mXScroll + remainingX);
+		int top = -(v.getTop() + mYScroll + remainingY);
+		int right = screenWidth -(v.getLeft() + mXScroll + remainingX);
 		int bottom = screenHeight+top;
 		// docWidth/Height are the width/height of the scaled document e.g. 2000x3000
-		int docWidth  = v.getMeasuredWidth();
+		int docWidth = v.getMeasuredWidth();
 		int docHeight = v.getMeasuredHeight();
 
 		int xOffset, yOffset;
@@ -189,7 +196,7 @@ public class ReaderView
 				View nv = mChildViews.get(mCurrent+1);
 				if (nv == null) // No page to advance to
 					return;
-				int nextTop  = -(nv.getTop() + mYScroll + remainingY);
+				int nextTop = -(nv.getTop() + mYScroll + remainingY);
 				int nextLeft = -(nv.getLeft() + mXScroll + remainingX);
 				int nextDocWidth = nv.getMeasuredWidth();
 				int nextDocHeight = nv.getMeasuredHeight();
@@ -239,7 +246,7 @@ public class ReaderView
 		// code.
 
 		// screenWidth/Height are the actual width/height of the screen. e.g. 480/800
-		int screenWidth  = getWidth();
+		int screenWidth = getWidth();
 		int screenHeight = getHeight();
 		// We might be mid scroll; we want to calculate where we scroll to based on
 		// where this scroll would end, not where we are now (to allow for people
@@ -247,8 +254,8 @@ public class ReaderView
 		int remainingX = mScroller.getFinalX() - mScroller.getCurrX();
 		int remainingY = mScroller.getFinalY() - mScroller.getCurrY();
 		// left/top is in terms of pixels within the scaled document; e.g. 1000
-		int left  = -(v.getLeft() + mXScroll + remainingX);
-		int top   = -(v.getTop()  + mYScroll + remainingY);
+		int left = -(v.getLeft() + mXScroll + remainingX);
+		int top = -(v.getTop() + mYScroll + remainingY);
 		// docWidth/Height are the width/height of the scaled document e.g. 2000x3000
 		int docHeight = v.getMeasuredHeight();
 
@@ -266,8 +273,8 @@ public class ReaderView
 				// Allow for the next page maybe being shorter than the screen is high
 				yOffset = (prevDocHeight < screenHeight ? ((prevDocHeight - screenHeight)>>1) : 0);
 
-				int prevLeft  = -(pv.getLeft() + mXScroll);
-				int prevTop  = -(pv.getTop() + mYScroll);
+				int prevLeft = -(pv.getLeft() + mXScroll);
+				int prevTop = -(pv.getTop() + mYScroll);
 				if (prevDocWidth < screenWidth) {
 					// Previous page is too narrow to fill the screen. Scroll to the bottom, centred.
 					xOffset = (prevDocWidth - screenWidth)>>1;
@@ -408,7 +415,7 @@ public class ReaderView
 				}
 				break;
 			case MOVING_DOWN:
-				if (HORIZONTAL_SCROLLING && bounds.bottom <= 0) {
+				if (!HORIZONTAL_SCROLLING && bounds.bottom <= 0) {
 					// Fling off to the bottom bring previous view onto screen
 					View vr = mChildViews.get(mCurrent-1);
 
@@ -478,12 +485,22 @@ public class ReaderView
 
 			View v = mChildViews.get(mCurrent);
 			if (v != null) {
+				float currentFocusX = detector.getFocusX();
+				float currentFocusY = detector.getFocusY();
 				// Work out the focus point relative to the view top left
-				int viewFocusX = (int)detector.getFocusX() - (v.getLeft() + mXScroll);
-				int viewFocusY = (int)detector.getFocusY() - (v.getTop() + mYScroll);
+				int viewFocusX = (int)currentFocusX - (v.getLeft() + mXScroll);
+				int viewFocusY = (int)currentFocusY - (v.getTop() + mYScroll);
 				// Scroll to maintain the focus point
 				mXScroll += viewFocusX - viewFocusX * factor;
 				mYScroll += viewFocusY - viewFocusY * factor;
+
+				if (mLastScaleFocusX>=0)
+					mXScroll+=currentFocusX-mLastScaleFocusX;
+				if (mLastScaleFocusY>=0)
+					mYScroll+=currentFocusY-mLastScaleFocusY;
+
+				mLastScaleFocusX=currentFocusX;
+				mLastScaleFocusY=currentFocusY;
 				requestLayout();
 			}
 		}
@@ -496,6 +513,7 @@ public class ReaderView
 		// screen is not showing the effect of them, so they can
 		// only confuse the user
 		mXScroll = mYScroll = 0;
+		mLastScaleFocusX = mLastScaleFocusY = -1;
 		return true;
 	}
 
@@ -553,9 +571,39 @@ public class ReaderView
 	}
 
 	@Override
-	protected void onLayout(boolean changed, int left, int top, int right,
-			int bottom) {
+	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 		super.onLayout(changed, left, top, right, bottom);
+
+		try {
+			onLayout2(changed, left, top, right, bottom);
+		}
+		catch (java.lang.OutOfMemoryError e) {
+			System.out.println("Out of memory during layout");
+
+			// we might get an out of memory error.
+			// so let's display an alert.
+			// TODO: a better message, in resources.
+
+			if (!memAlert) {
+				memAlert = true;
+				AlertDialog alertDialog = MuPDFActivity.getAlertBuilder().create();
+				alertDialog.setMessage("Out of memory during layout");
+				alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+							memAlert = false;
+						}
+					});
+				alertDialog.show();
+			}
+		}
+	}
+
+	private boolean memAlert = false;
+
+	private void onLayout2(boolean changed, int left, int top, int right,
+			int bottom) {
 
 		// "Edit mode" means when the View is being displayed in the Android GUI editor. (this class
 		// is instantiated in the IDE, so we need to be a bit careful what we do).
@@ -652,37 +700,37 @@ public class ReaderView
 		// the views spaced out
 		cvOffset = subScreenSizeOffset(cv);
 		if (notPresent) {
-			//Main item not already present. Just place it top left
+			// Main item not already present. Just place it top left
 			cvLeft = cvOffset.x;
-			cvTop  = cvOffset.y;
+			cvTop = cvOffset.y;
 		} else {
 			// Main item already present. Adjust by scroll offsets
 			cvLeft = cv.getLeft() + mXScroll;
-			cvTop  = cv.getTop()  + mYScroll;
+			cvTop = cv.getTop() + mYScroll;
 		}
 		// Scroll values have been accounted for
 		mXScroll = mYScroll = 0;
-		cvRight  = cvLeft + cv.getMeasuredWidth();
-		cvBottom = cvTop  + cv.getMeasuredHeight();
+		cvRight = cvLeft + cv.getMeasuredWidth();
+		cvBottom = cvTop + cv.getMeasuredHeight();
 
 		if (!mUserInteracting && mScroller.isFinished()) {
 			Point corr = getCorrection(getScrollBounds(cvLeft, cvTop, cvRight, cvBottom));
-			cvRight  += corr.x;
-			cvLeft   += corr.x;
-			cvTop    += corr.y;
+			cvRight += corr.x;
+			cvLeft += corr.x;
+			cvTop += corr.y;
 			cvBottom += corr.y;
 		} else if (HORIZONTAL_SCROLLING && cv.getMeasuredHeight() <= getHeight()) {
 			// When the current view is as small as the screen in height, clamp
 			// it vertically
 			Point corr = getCorrection(getScrollBounds(cvLeft, cvTop, cvRight, cvBottom));
-			cvTop    += corr.y;
+			cvTop += corr.y;
 			cvBottom += corr.y;
 		} else if (!HORIZONTAL_SCROLLING && cv.getMeasuredWidth() <= getWidth()) {
 			// When the current view is as small as the screen in width, clamp
 			// it horizontally
 			Point corr = getCorrection(getScrollBounds(cvLeft, cvTop, cvRight, cvBottom));
-			cvRight  += corr.x;
-			cvLeft   += corr.x;
+			cvRight += corr.x;
+			cvLeft += corr.x;
 		}
 
 		cv.layout(cvLeft, cvTop, cvRight, cvBottom);
@@ -740,6 +788,14 @@ public class ReaderView
 
 	@Override
 	public void setAdapter(Adapter adapter) {
+
+		//  release previous adapter's bitmaps
+		if (null!=mAdapter && adapter!=mAdapter) {
+			if (adapter instanceof MuPDFPageAdapter){
+				((MuPDFPageAdapter) adapter).releaseBitmaps();
+			}
+		}
+
 		mAdapter = adapter;
 
 		requestLayout();
@@ -815,14 +871,14 @@ public class ReaderView
 		// onLayout, so add mXScroll and mYScroll to the current
 		// positions when calculating the bounds.
 		return getScrollBounds(v.getLeft() + mXScroll,
-				               v.getTop() + mYScroll,
-				               v.getLeft() + v.getMeasuredWidth() + mXScroll,
-				               v.getTop() + v.getMeasuredHeight() + mYScroll);
+				v.getTop() + mYScroll,
+				v.getLeft() + v.getMeasuredWidth() + mXScroll,
+				v.getTop() + v.getMeasuredHeight() + mYScroll);
 	}
 
 	private Point getCorrection(Rect bounds) {
 		return new Point(Math.min(Math.max(0,bounds.left),bounds.right),
-				         Math.min(Math.max(0,bounds.top),bounds.bottom));
+				Math.min(Math.max(0,bounds.top),bounds.bottom));
 	}
 
 	private void postSettle(final View v) {
@@ -870,10 +926,10 @@ public class ReaderView
 	private static boolean withinBoundsInDirectionOfTravel(Rect bounds, float vx, float vy) {
 		switch (directionOfTravel(vx, vy)) {
 		case MOVING_DIAGONALLY: return bounds.contains(0, 0);
-		case MOVING_LEFT:       return bounds.left <= 0;
-		case MOVING_RIGHT:      return bounds.right >= 0;
-		case MOVING_UP:         return bounds.top <= 0;
-		case MOVING_DOWN:       return bounds.bottom >= 0;
+		case MOVING_LEFT: return bounds.left <= 0;
+		case MOVING_RIGHT: return bounds.right >= 0;
+		case MOVING_UP: return bounds.top <= 0;
+		case MOVING_DOWN: return bounds.bottom >= 0;
 		default: throw new NoSuchElementException();
 		}
 	}

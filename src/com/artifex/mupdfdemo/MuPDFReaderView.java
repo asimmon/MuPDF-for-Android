@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 public class MuPDFReaderView extends ReaderView {
-	enum Mode {Viewing, Selecting, Drawing}
+	public enum Mode {Viewing, Selecting, Drawing}
 	private final Context mContext;
 	private boolean mLinksEnabled = false;
 	private Mode mMode = Mode.Viewing;
@@ -69,8 +69,9 @@ public class MuPDFReaderView extends ReaderView {
 
 		if (mMode == Mode.Viewing && !tapDisabled) {
 			MuPDFView pageView = (MuPDFView) getDisplayedView();
-			Hit item = pageView.passClickEvent(e.getX(), e.getY());
-			onHit(item);
+			Hit item = pageView != null ? pageView.passClickEvent(e.getX(), e.getY()) : null;
+			if (item != null)
+				onHit(item);
 			if (item == Hit.Nothing) {
 				if (mLinksEnabled && pageView != null
 				&& (link = pageView.hitLink(e.getX(), e.getY())) != null) {
