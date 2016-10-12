@@ -67,6 +67,7 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 	private MuPDFReaderView mDocView;
 	private View mButtonsView;
 	private boolean mButtonsVisible;
+	private boolean mDisableButtons;
 	private EditText mPasswordView;
 	private TextView mFilenameView;
 	private SeekBar mPageSlider;
@@ -650,6 +651,18 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 			mOutlineButton.setVisibility(View.GONE);
 		}
 
+		// API commands
+		Intent intent = getIntent();
+		if (intent != null) {
+			if (intent.getBooleanExtra("DisableButtons", false)) {
+				mDisableButtons = true;
+			}
+		}
+		
+		if (mDisableButtons) {
+			mTopBarSwitcher.setVisibility(View.GONE);
+		}
+
 		// Reenstate last state if it was recorded
 		SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
 		mDocView.setDisplayedViewIndex(prefs.getInt("page" + mFileName, 0));
@@ -832,7 +845,10 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 				public void onAnimationEnd(Animation animation) {
 				}
 			});
-			mTopBarSwitcher.startAnimation(anim);
+
+			if (!mDisableButtons) {
+				mTopBarSwitcher.startAnimation(anim);
+			}
 
 			anim = new TranslateAnimation(0, 0, mPageSlider.getHeight(), 0);
 			anim.setDuration(200);
@@ -870,7 +886,12 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 					mTopBarSwitcher.setVisibility(View.INVISIBLE);
 				}
 			});
-			mTopBarSwitcher.startAnimation(anim);
+			
+			if (!mDisableButtons) {
+				mTopBarSwitcher.startAnimation(anim);
+			} else {
+				mTopBarSwitcher.setVisibility(View.GONE);
+			}
 
 			anim = new TranslateAnimation(0, 0, 0, mPageSlider.getHeight());
 			anim.setDuration(200);
