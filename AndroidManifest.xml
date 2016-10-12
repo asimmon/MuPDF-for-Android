@@ -3,7 +3,7 @@
 	package="com.artifex.mupdfdemo"
 	android:versionCode="50"
 	android:versionName="1.9a (git build)">
-	<uses-sdk android:minSdkVersion="9" android:targetSdkVersion="16"/>
+	<uses-sdk android:minSdkVersion="11" android:targetSdkVersion="16"/>
 	<application>
 		<!-- enable any of these built-in activities in your app by copying them in your app manifest -->
 		<!--
