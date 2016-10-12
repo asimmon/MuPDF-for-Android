@@ -128,7 +128,7 @@ public class MuPDFCore
 		globals = openFile(filename);
 		if (globals == 0)
 		{
-			throw new Exception(String.format(context.getString(R.string.cannot_open_file_Path), filename));
+			throw new Exception(String.format(context.getString(R.string.mupdflib_cannot_open_file_Path), filename));
 		}
 		file_format = fileFormatInternal();
 		isUnencryptedPDF = isUnencryptedPDFInternal();
@@ -140,7 +140,7 @@ public class MuPDFCore
 		globals = openBuffer(magic != null ? magic : "");
 		if (globals == 0)
 		{
-			throw new Exception(context.getString(R.string.cannot_open_buffer));
+			throw new Exception(context.getString(R.string.mupdflib_cannot_open_buffer));
 		}
 		file_format = fileFormatInternal();
 		isUnencryptedPDF = isUnencryptedPDFInternal();

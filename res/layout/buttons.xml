@@ -47,7 +47,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@+id/reflowButton"
-				android:contentDescription="@string/toggle_links"
+				android:contentDescription="@string/mupdflib_toggle_links"
 				android:background="@drawable/button"
 				android:src="@drawable/ic_link" />
 
@@ -57,7 +57,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@+id/outlineButton"
-				android:contentDescription="@string/toggle_reflow_mode"
+				android:contentDescription="@string/mupdflib_toggle_reflow_mode"
 				android:background="@drawable/button"
 				android:src="@drawable/ic_reflow" />
 
@@ -67,7 +67,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@+id/searchButton"
-				android:contentDescription="@string/outline_title"
+				android:contentDescription="@string/mupdflib_outline_title"
 				android:background="@drawable/button"
 				android:src="@drawable/ic_list" />
 
@@ -77,7 +77,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@+id/moreButton"
-				android:contentDescription="@string/search_document"
+				android:contentDescription="@string/mupdflib_search_document"
 				android:background="@drawable/button"
 				android:src="@drawable/ic_magnifying_glass" />
 
@@ -87,7 +87,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_alignParentRight="true"
-				android:contentDescription="@string/more"
+				android:contentDescription="@string/mupdflib_more"
 				android:background="@drawable/button"
 				android:onClick="OnMoreButtonClick"
 				android:src="@drawable/ic_more" />
@@ -106,7 +106,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_alignParentLeft="true"
-				android:contentDescription="@string/cancel"
+				android:contentDescription="@string/mupdflib_cancel"
 				android:background="@drawable/button"
 				android:onClick="OnCancelSearchButtonClick"
 				android:src="@drawable/ic_cancel" />
@@ -120,7 +120,7 @@
 				android:layout_toRightOf="@+id/cancelSearch"
 				android:layout_toLeftOf="@+id/searchBack"
 				android:inputType="text"
-				android:hint="@string/search"
+				android:hint="@string/mupdflib_search"
 				android:singleLine="true" />
 
 			<ImageButton
@@ -129,7 +129,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@+id/searchForward"
-				android:contentDescription="@string/search_backwards"
+				android:contentDescription="@string/mupdflib_search_backwards"
 				android:background="@drawable/button"
 				android:src="@drawable/ic_arrow_left" />
 
@@ -139,7 +139,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_alignParentRight="true"
-				android:contentDescription="@string/search_forwards"
+				android:contentDescription="@string/mupdflib_search_forwards"
 				android:background="@drawable/button"
 				android:src="@drawable/ic_arrow_right" />
 
@@ -157,7 +157,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_alignParentLeft="true"
-				android:contentDescription="@string/cancel"
+				android:contentDescription="@string/mupdflib_cancel"
 				android:background="@drawable/button"
 				android:onClick="OnCancelAnnotButtonClick"
 				android:src="@drawable/ic_cancel" />
@@ -168,7 +168,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@+id/underlineButton"
-				android:contentDescription="@string/highlight"
+				android:contentDescription="@string/mupdflib_highlight"
 				android:background="@drawable/button"
 				android:onClick="OnHighlightButtonClick"
 				android:src="@drawable/ic_highlight" />
@@ -179,7 +179,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@+id/strikeOutButton"
-				android:contentDescription="@string/underline"
+				android:contentDescription="@string/mupdflib_underline"
 				android:background="@drawable/button"
 				android:onClick="OnUnderlineButtonClick"
 				android:src="@drawable/ic_underline" />
@@ -190,7 +190,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@+id/inkButton"
-				android:contentDescription="@string/strike_out"
+				android:contentDescription="@string/mupdflib_strike_out"
 				android:background="@drawable/button"
 				android:onClick="OnStrikeOutButtonClick"
 				android:src="@drawable/ic_strike" />
@@ -201,7 +201,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_alignParentRight="true"
-				android:contentDescription="@string/ink"
+				android:contentDescription="@string/mupdflib_ink"
 				android:background="@drawable/button"
 				android:onClick="OnInkButtonClick"
 				android:src="@drawable/ic_pen" />
@@ -220,7 +220,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_alignParentLeft="true"
-				android:contentDescription="@string/cancel"
+				android:contentDescription="@string/mupdflib_cancel"
 				android:background="@drawable/button"
 				android:onClick="OnCancelDeleteButtonClick"
 				android:src="@drawable/ic_cancel" />
@@ -236,7 +236,7 @@
 				android:singleLine="true"
 				android:textColor="#FFFFFF"
 				android:textStyle="bold"
-				android:text="@string/delete"
+				android:text="@string/mupdflib_delete"
 				android:textAppearance="?android:attr/textAppearanceMedium" />
 
 			<ImageButton
@@ -245,7 +245,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_alignParentRight="true"
-				android:contentDescription="@string/delete"
+				android:contentDescription="@string/mupdflib_delete"
 				android:background="@drawable/button"
 				android:onClick="OnDeleteButtonClick"
 				android:src="@drawable/ic_trash" />
@@ -264,7 +264,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_alignParentLeft="true"
-				android:contentDescription="@string/cancel"
+				android:contentDescription="@string/mupdflib_cancel"
 				android:background="@drawable/button"
 				android:onClick="OnCancelMoreButtonClick"
 				android:src="@drawable/ic_cancel" />
@@ -275,7 +275,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@+id/printButton"
-				android:contentDescription="@string/proof"
+				android:contentDescription="@string/mupdflib_proof"
 				android:background="@drawable/button"
 				android:onClick="OnProofButtonClick"
 				android:src="@drawable/ic_proof" />
@@ -286,7 +286,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@+id/copyTextButton"
-				android:contentDescription="@string/print"
+				android:contentDescription="@string/mupdflib_print"
 				android:background="@drawable/button"
 				android:onClick="OnPrintButtonClick"
 				android:src="@drawable/ic_print" />
@@ -298,7 +298,7 @@
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@+id/editAnnotButton"
 				android:layout_alignWithParentIfMissing="true"
-				android:contentDescription="@string/copy_text_to_the_clipboard"
+				android:contentDescription="@string/mupdflib_copy_text_to_the_clipboard"
 				android:background="@drawable/button"
 				android:onClick="OnCopyTextButtonClick"
 				android:src="@drawable/ic_clipboard" />
@@ -309,7 +309,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_alignParentRight="true"
-				android:contentDescription="@string/edit_annotations"
+				android:contentDescription="@string/mupdflib_edit_annotations"
 				android:background="@drawable/button"
 				android:onClick="OnEditAnnotButtonClick"
 				android:src="@drawable/ic_annotation" />
@@ -327,7 +327,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_alignParentLeft="true"
-				android:contentDescription="@string/cancel"
+				android:contentDescription="@string/mupdflib_cancel"
 				android:background="@drawable/button"
 				android:onClick="OnCancelAcceptButtonClick"
 				android:src="@drawable/ic_cancel" />
@@ -351,7 +351,7 @@
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_alignParentRight="true"
-				android:contentDescription="@string/accept"
+				android:contentDescription="@string/mupdflib_accept"
 				android:background="@drawable/button"
 				android:onClick="OnAcceptButtonClick"
 				android:src="@drawable/ic_check" />

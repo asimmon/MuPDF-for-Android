@@ -192,19 +192,19 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 				}
 				switch (result.buttonGroupType) {
 					case OkCancel:
-						mAlertDialog.setButton(AlertDialog.BUTTON2, getString(R.string.cancel), listener);
+						mAlertDialog.setButton(AlertDialog.BUTTON2, getString(R.string.mupdflib_cancel), listener);
 						pressed[1] = MuPDFAlert.ButtonPressed.Cancel;
 					case Ok:
-						mAlertDialog.setButton(AlertDialog.BUTTON1, getString(R.string.okay), listener);
+						mAlertDialog.setButton(AlertDialog.BUTTON1, getString(R.string.mupdflib_okay), listener);
 						pressed[0] = MuPDFAlert.ButtonPressed.Ok;
 						break;
 					case YesNoCancel:
-						mAlertDialog.setButton(AlertDialog.BUTTON3, getString(R.string.cancel), listener);
+						mAlertDialog.setButton(AlertDialog.BUTTON3, getString(R.string.mupdflib_cancel), listener);
 						pressed[2] = MuPDFAlert.ButtonPressed.Cancel;
 					case YesNo:
-						mAlertDialog.setButton(AlertDialog.BUTTON1, getString(R.string.yes), listener);
+						mAlertDialog.setButton(AlertDialog.BUTTON1, getString(R.string.mupdflib_yes), listener);
 						pressed[0] = MuPDFAlert.ButtonPressed.Yes;
-						mAlertDialog.setButton(AlertDialog.BUTTON2, getString(R.string.no), listener);
+						mAlertDialog.setButton(AlertDialog.BUTTON2, getString(R.string.mupdflib_no), listener);
 						pressed[1] = MuPDFAlert.ButtonPressed.No;
 						break;
 				}
@@ -346,8 +346,8 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 						buffer = null;
 						Resources res = getResources();
 						AlertDialog alert = mAlertBuilder.create();
-						setTitle(String.format(res.getString(R.string.cannot_open_document_Reason), reason));
-						alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dismiss),
+						setTitle(String.format(res.getString(R.string.mupdflib_cannot_open_document_Reason), reason));
+						alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.mupdflib_dismiss),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog, int which) {
 										finish();
@@ -378,8 +378,8 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 		}
 		if (core == null) {
 			AlertDialog alert = mAlertBuilder.create();
-			alert.setTitle(R.string.cannot_open_document);
-			alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dismiss),
+			alert.setTitle(R.string.mupdflib_cannot_open_document);
+			alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.mupdflib_dismiss),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							finish();
@@ -430,9 +430,9 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 		mPasswordView.setTransformationMethod(new PasswordTransformationMethod());
 
 		AlertDialog alert = mAlertBuilder.create();
-		alert.setTitle(R.string.enter_password);
+		alert.setTitle(R.string.mupdflib_enter_password);
 		alert.setView(mPasswordView);
-		alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.okay), new DialogInterface.OnClickListener() {
+		alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.mupdflib_okay), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				if (core.authenticatePassword(mPasswordView.getText().toString())) {
 					createUI(savedInstanceState);
@@ -441,7 +441,7 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 				}
 			}
 		});
-		alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel), new DialogInterface.OnClickListener() {
+		alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.mupdflib_cancel), new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int which) {
 				finish();
@@ -699,7 +699,7 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 				break;
 			case PRINT_REQUEST:
 				if (resultCode == RESULT_CANCELED)
-					showInfo(getString(R.string.print_failed));
+					showInfo(getString(R.string.mupdflib_print_failed));
 				break;
 			case FILEPICK_REQUEST:
 				if (mFilePicker != null && resultCode == RESULT_OK)
@@ -741,7 +741,7 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 
 	private void toggleReflow() {
 		reflowModeSet(!mReflow);
-		showInfo(mReflow ? getString(R.string.entering_reflow_mode) : getString(R.string.leaving_reflow_mode));
+		showInfo(mReflow ? getString(R.string.mupdflib_entering_reflow_mode) : getString(R.string.mupdflib_leaving_reflow_mode));
 	}
 
 	@Override
@@ -941,7 +941,7 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 
 	private void printDoc() {
 		if (!core.fileFormat().startsWith("PDF")) {
-			showInfo(getString(R.string.format_currently_not_supported));
+			showInfo(getString(R.string.mupdflib_format_currently_not_supported));
 			return;
 		}
 
@@ -949,7 +949,7 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 		Uri docUri = myIntent != null ? myIntent.getData() : null;
 
 		if (docUri == null) {
-			showInfo(getString(R.string.print_failed));
+			showInfo(getString(R.string.mupdflib_print_failed));
 		}
 
 		if (docUri.getScheme() == null)
@@ -1221,8 +1221,8 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 		mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
 		mAcceptMode = AcceptMode.CopyText;
 		mDocView.setMode(MuPDFReaderView.Mode.Selecting);
-		mAnnotTypeText.setText(getString(R.string.copy_text));
-		showInfo(getString(R.string.select_text));
+		mAnnotTypeText.setText(getString(R.string.mupdflib_copy_text));
+		showInfo(getString(R.string.mupdflib_select_text));
 	}
 
 	public void OnEditAnnotButtonClick(View v) {
@@ -1240,8 +1240,8 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 		mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
 		mAcceptMode = AcceptMode.Highlight;
 		mDocView.setMode(MuPDFReaderView.Mode.Selecting);
-		mAnnotTypeText.setText(R.string.highlight);
-		showInfo(getString(R.string.select_text));
+		mAnnotTypeText.setText(R.string.mupdflib_highlight);
+		showInfo(getString(R.string.mupdflib_select_text));
 	}
 
 	public void OnUnderlineButtonClick(View v) {
@@ -1249,8 +1249,8 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 		mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
 		mAcceptMode = AcceptMode.Underline;
 		mDocView.setMode(MuPDFReaderView.Mode.Selecting);
-		mAnnotTypeText.setText(R.string.underline);
-		showInfo(getString(R.string.select_text));
+		mAnnotTypeText.setText(R.string.mupdflib_underline);
+		showInfo(getString(R.string.mupdflib_select_text));
 	}
 
 	public void OnStrikeOutButtonClick(View v) {
@@ -1258,8 +1258,8 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 		mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
 		mAcceptMode = AcceptMode.StrikeOut;
 		mDocView.setMode(MuPDFReaderView.Mode.Selecting);
-		mAnnotTypeText.setText(R.string.strike_out);
-		showInfo(getString(R.string.select_text));
+		mAnnotTypeText.setText(R.string.mupdflib_strike_out);
+		showInfo(getString(R.string.mupdflib_select_text));
 	}
 
 	public void OnInkButtonClick(View v) {
@@ -1267,8 +1267,8 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 		mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
 		mAcceptMode = AcceptMode.Ink;
 		mDocView.setMode(MuPDFReaderView.Mode.Drawing);
-		mAnnotTypeText.setText(R.string.ink);
-		showInfo(getString(R.string.draw_annotation));
+		mAnnotTypeText.setText(R.string.mupdflib_ink);
+		showInfo(getString(R.string.mupdflib_draw_annotation));
 	}
 
 	public void OnCancelAcceptButtonClick(View v) {
@@ -1297,7 +1297,7 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 				if (pageView != null)
 					success = pageView.copySelection();
 				mTopBarMode = TopBarMode.More;
-				showInfo(success ? getString(R.string.copied_to_clipboard) : getString(R.string.no_text_selected));
+				showInfo(success ? getString(R.string.mupdflib_copied_to_clipboard) : getString(R.string.mupdflib_no_text_selected));
 				break;
 
 			case Highlight:
@@ -1305,7 +1305,7 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 					success = pageView.markupSelection(Annotation.Type.HIGHLIGHT);
 				mTopBarMode = TopBarMode.Annot;
 				if (!success)
-					showInfo(getString(R.string.no_text_selected));
+					showInfo(getString(R.string.mupdflib_no_text_selected));
 				break;
 
 			case Underline:
@@ -1313,7 +1313,7 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 					success = pageView.markupSelection(Annotation.Type.UNDERLINE);
 				mTopBarMode = TopBarMode.Annot;
 				if (!success)
-					showInfo(getString(R.string.no_text_selected));
+					showInfo(getString(R.string.mupdflib_no_text_selected));
 				break;
 
 			case StrikeOut:
@@ -1321,7 +1321,7 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 					success = pageView.markupSelection(Annotation.Type.STRIKEOUT);
 				mTopBarMode = TopBarMode.Annot;
 				if (!success)
-					showInfo(getString(R.string.no_text_selected));
+					showInfo(getString(R.string.mupdflib_no_text_selected));
 				break;
 
 			case Ink:
@@ -1329,7 +1329,7 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 					success = pageView.saveDraw();
 				mTopBarMode = TopBarMode.Annot;
 				if (!success)
-					showInfo(getString(R.string.nothing_to_save));
+					showInfo(getString(R.string.mupdflib_nothing_to_save));
 				break;
 		}
 		mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
@@ -1431,9 +1431,9 @@ public class MuPDFActivity extends Activity implements FilePicker.FilePickerSupp
 			};
 			AlertDialog alert = mAlertBuilder.create();
 			alert.setTitle("MuPDF");
-			alert.setMessage(getString(R.string.document_has_changes_save_them_));
-			alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), listener);
-			alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), listener);
+			alert.setMessage(getString(R.string.mupdflib_document_has_changes_save_them_));
+			alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.mupdflib_yes), listener);
+			alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.mupdflib_no), listener);
 			alert.show();
 		} else {
 			super.onBackPressed();

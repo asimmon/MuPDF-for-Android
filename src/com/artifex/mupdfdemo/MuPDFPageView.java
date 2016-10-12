@@ -118,16 +118,16 @@ public class MuPDFPageView extends PageView implements MuPDFView {
 		mFilePickerSupport = filePickerSupport;
 		mCore = core;
 		mTextEntryBuilder = new AlertDialog.Builder(c);
-		mTextEntryBuilder.setTitle(getContext().getString(R.string.fill_out_text_field));
+		mTextEntryBuilder.setTitle(getContext().getString(R.string.mupdflib_fill_out_text_field));
 		LayoutInflater inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mEditText = (EditText)inflater.inflate(R.layout.textentry, null);
 		mTextEntryBuilder.setView(mEditText);
-		mTextEntryBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+		mTextEntryBuilder.setNegativeButton(R.string.mupdflib_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
 			}
 		});
-		mTextEntryBuilder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+		mTextEntryBuilder.setPositiveButton(R.string.mupdflib_okay, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				mSetWidgetText = new AsyncTask<String,Void,Boolean> () {
 					@Override
@@ -148,17 +148,17 @@ public class MuPDFPageView extends PageView implements MuPDFView {
 		mTextEntry = mTextEntryBuilder.create();
 
 		mChoiceEntryBuilder = new AlertDialog.Builder(c);
-		mChoiceEntryBuilder.setTitle(getContext().getString(R.string.choose_value));
+		mChoiceEntryBuilder.setTitle(getContext().getString(R.string.mupdflib_choose_value));
 
 		mSigningDialogBuilder = new AlertDialog.Builder(c);
 		mSigningDialogBuilder.setTitle("Select certificate and sign?");
-		mSigningDialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+		mSigningDialogBuilder.setNegativeButton(R.string.mupdflib_cancel, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
 			}
 		});
-		mSigningDialogBuilder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+		mSigningDialogBuilder.setPositiveButton(R.string.mupdflib_okay, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				FilePicker picker = new FilePicker(mFilePickerSupport) {
@@ -174,7 +174,7 @@ public class MuPDFPageView extends PageView implements MuPDFView {
 
 		mSignatureReportBuilder = new AlertDialog.Builder(c);
 		mSignatureReportBuilder.setTitle("Signature checked");
-		mSignatureReportBuilder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+		mSignatureReportBuilder.setPositiveButton(R.string.mupdflib_okay, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
@@ -186,9 +186,9 @@ public class MuPDFPageView extends PageView implements MuPDFView {
 		mPasswordText.setTransformationMethod(new PasswordTransformationMethod());
 
 		mPasswordEntryBuilder = new AlertDialog.Builder(c);
-		mPasswordEntryBuilder.setTitle(R.string.enter_password);
+		mPasswordEntryBuilder.setTitle(R.string.mupdflib_enter_password);
 		mPasswordEntryBuilder.setView(mPasswordText);
-		mPasswordEntryBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+		mPasswordEntryBuilder.setNegativeButton(R.string.mupdflib_cancel, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();

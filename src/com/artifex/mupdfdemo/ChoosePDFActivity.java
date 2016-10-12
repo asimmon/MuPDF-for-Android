@@ -50,10 +50,10 @@ public class ChoosePDFActivity extends ListActivity {
 				&& !Environment.MEDIA_MOUNTED_READ_ONLY.equals(storageState))
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle(R.string.no_media_warning);
-			builder.setMessage(R.string.no_media_hint);
+			builder.setTitle(R.string.mupdflib_no_media_warning);
+			builder.setMessage(R.string.mupdflib_no_media_hint);
 			AlertDialog alert = builder.create();
-			alert.setButton(AlertDialog.BUTTON_POSITIVE,getString(R.string.dismiss),
+			alert.setButton(AlertDialog.BUTTON_POSITIVE,getString(R.string.mupdflib_dismiss),
 					new OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							finish();
@@ -75,9 +75,9 @@ public class ChoosePDFActivity extends ListActivity {
 		mUpdateFiles = new Runnable() {
 			public void run() {
 				Resources res = getResources();
-				String appName = res.getString(R.string.app_name);
-				String version = res.getString(R.string.version);
-				String title = res.getString(R.string.picker_title_App_Ver_Dir);
+				String appName = res.getString(R.string.mupdflib_app_name);
+				String version = res.getString(R.string.mupdflib_version);
+				String title = res.getString(R.string.mupdflib_picker_title_App_Ver_Dir);
 				setTitle(String.format(title, appName, version, mDirectory));
 
 				mParent = mDirectory.getParentFile();
@@ -150,7 +150,7 @@ public class ChoosePDFActivity extends ListActivity {
 
 				adapter.clear();
 				if (mParent != null)
-					adapter.add(new ChoosePDFItem(ChoosePDFItem.Type.PARENT, getString(R.string.parent_directory)));
+					adapter.add(new ChoosePDFItem(ChoosePDFItem.Type.PARENT, getString(R.string.mupdflib_parent_directory)));
 				for (File f : mDirs)
 					adapter.add(new ChoosePDFItem(ChoosePDFItem.Type.DIR, f.getName()));
 				for (File f : mFiles)

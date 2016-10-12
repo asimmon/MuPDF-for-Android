@@ -803,7 +803,7 @@ public class ReaderView
 
 	@Override
 	public void setSelection(int arg0) {
-		throw new UnsupportedOperationException(getContext().getString(R.string.not_supported));
+		throw new UnsupportedOperationException(getContext().getString(R.string.mupdflib_not_supported));
 	}
 
 	private View getCached() {
